@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const apiKey = 'j86bwkwo-8hako-12C'; // This is your API Key
-const apiUrl = 'https://liaspark.chatbotcommunity.ltd/@LianeAPI_Reworks/api/sumi'; // API URL
+const apiUrl = 'http://liaspark.chatbotcommunity.ltd/@unregistered/api/0.5894690218095953'; // API URL
 
 function sumiAPICommand(question) {
   return new Promise((resolve, reject) => {
