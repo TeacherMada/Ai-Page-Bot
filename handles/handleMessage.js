@@ -1,6 +1,7 @@
 const { callGeminiAPI } = require('../commands/callGeminiAPI');
 const { sumiAPICommand } = require('../commands/sumiAPI');
 const { sendMessage } = require('./sendMessage');
+const { callAI } = require('../commands/ai'); // Import the callAI function
 
 const AVAILABLE_COMMANDS = [
   'gemini - Ask a question to the Gemini AI',
@@ -9,7 +10,8 @@ const AVAILABLE_COMMANDS = [
   'help - Show available commands',
   'how are you - Check how the bot is doing',
   'what\'s up - Casual greeting',
-  'sumi (liaspark) - Execute the Sumi command'
+  'sumi (liaspark) - Execute the Sumi command',
+  'ai - Execute the AI command' // Add the new AI command to the list
 ];
 
 function handleMessage(event, pageAccessToken) {
@@ -17,7 +19,7 @@ function handleMessage(event, pageAccessToken) {
   const messageText = event.message.text.toLowerCase();
 
   // Define triggers for responses
-  const triggers = ['gemini', 'hi', 'hello', 'help', 'how are you', 'what\'s up', 'sumi', 'sumi api'];
+  const triggers = ['gemini', 'hi', 'hello', 'help', 'how are you', 'what\'s up', 'sumi', 'sumi api', 'ai'];
 
   // Check if any trigger is found in the message
   if (triggers.some(trigger => messageText.includes(trigger))) {
@@ -47,6 +49,17 @@ function handleMessage(event, pageAccessToken) {
         })
         .catch(error => {
           console.error('Error calling Gemini API:', error);
+          sendMessage(senderId, { text: 'Sorry, there was an error processing your request.' }, pageAccessToken);
+        });
+    } else if (messageText.includes('ai')) {
+      // Execute the AI command
+      const prompt = messageText.replace('ai', '').trim();
+      callAI(prompt)
+        .then(response => {
+          sendMessage(senderId, { text: response }, pageAccessToken);
+        })
+        .catch(error => {
+          console.error('Error calling AI API:', error);
           sendMessage(senderId, { text: 'Sorry, there was an error processing your request.' }, pageAccessToken);
         });
     }
