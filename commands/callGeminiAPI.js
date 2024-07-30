@@ -2,7 +2,7 @@ const request = require('request');
 
 function callGeminiAPI(prompt) {
   return new Promise((resolve, reject) => {
-    const apiUrl = `https://hazee-gemini-ultra-c1ad28d5e422.herokuapp.com/bard?question=${encodeURIComponent(prompt)}`;
+    const apiUrl = `https://liaspark.chatbotcommunity.ltd/@unregistered/api/0.5894690218095953?key=j86bwkwo-8hako-12C&query=${encodeURIComponent(prompt)}`;
       //`https://gemini-yvcl.onrender.com/api/ai/chat?prompt=${encodeURIComponent(prompt)}&id=40`;
     
     request(apiUrl, (error, response, body) => {
